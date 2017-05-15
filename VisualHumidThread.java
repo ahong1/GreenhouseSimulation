@@ -1,27 +1,23 @@
-package EnvironmentSim;
+package GreenHouseSim;
 
 public class VisualHumidThread extends Thread {
 	private MainView mainView;
 	private HumidityModel humM;
-	private long updateFreq;
-	private boolean isRunning;
-	
-	public VisualHumidThread(MainView view, HumidityModel model, double freq) {
+
+	public VisualHumidThread(MainView view, HumidityModel model) {
 		humM=model;
 		mainView=view;
-		updateFreq=(new Double(freq).longValue());
 	}
 	
 	public void run() {
-		isRunning=true;
-		while (isRunning) {
+		while (true) {
 			try {
-				Thread.sleep(updateFreq);
+				Thread.sleep(3000);
 				double humidity=humM.getHumidity();
 				mainView.setCurrentHumid(humidity);
 				mainView.setHumidifierStatus(humM.isMachineOn());
 			} catch (InterruptedException e) {
-				isRunning=false;
+			e.printStackTrace();
 		}}
 		
 

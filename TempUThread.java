@@ -1,25 +1,24 @@
-package EnvironmentSim;
+package GreenHouseSim;
 
 public class TempUThread extends Thread{
 	private TempModel tempModel;
-	private boolean isRunning;
 	
 	public TempUThread(TempModel theModel){
 		tempModel = theModel;
 	}
-
+	
+	
+	
 	public void run() {
-		isRunning=true;
-		while (isRunning) {
+		while (true) {
 			try{
-				Thread.sleep(1000);
-				tempModel.conditionCheck(tempModel.getMinTemp(), tempModel.getMaxTemp());
-				tempModel.updateTemp();
-			
+			tempModel.conditionCheck(tempModel.getMinTemp(), tempModel.getMaxTemp());
+			tempModel.updateTemp();
+			Thread.sleep(1000);
 			}
 			catch (InterruptedException e) {
-				isRunning=false;
+				e.printStackTrace();
 			}
-		}	
+		}
 	}
 }

@@ -1,4 +1,4 @@
-package EnvironmentSim;
+package GreenHouseSim;
 
 public class TempModel {
 	private double currentTemp, minTemp, maxTemp, extTempRate, furnaceRate, conditionerRate, desiredTemp; 
@@ -39,6 +39,7 @@ public class TempModel {
 	//update the current temperature
 	
 	public void updateTemp(){
+		
 		if (furnaceState == false && conditionerState == false){
 			currentTemp += extTempRate;
 		}
@@ -52,8 +53,11 @@ public class TempModel {
 		}
 		
 		else{
-			currentTemp += (extTempRate + conditionerRate);		
-		}	
+			currentTemp += (extTempRate + conditionerRate);
+			
+		}
+		
+		
 	}
 	
 	public void setParameters(double currentT, double desiredT, double furnaceR, double conditionerR , double extTempR) {

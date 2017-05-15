@@ -1,4 +1,4 @@
-package EnvironmentSim;
+package GreenHouseSim;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -8,7 +8,7 @@ import javax.swing.*;
 public class MainView extends JFrame{
 	
 	//Creating and formatting labels
-
+	
 	private JLabel titleLabel = new JLabel("Greenhouse Simulation");
 
 	private JLabel userInputTitle = new JLabel("User Inputs");
@@ -44,10 +44,11 @@ public class MainView extends JFrame{
 	private JLabel environTempLabel = new JLabel("Environmental Temperature Rate:");
 	private JLabel environHumidLabel = new JLabel("Environmental Humidity Rate:");
 	private JLabel environSoilLabel = new JLabel("Environmental Soil Moisture Rate:");
+	private JLabel environSampleLabel = new JLabel("Environmental Sample Rate:");
 	
 	private JLabel initialTempLabel = new JLabel("Initial Temperature: ");
 	private JLabel initialHumidLabel = new JLabel("Initial Humidity: ");
-	private JLabel initialSoilLabel = new JLabel("Initial Soil Moisture: ");
+	private JLabel initialSoilLabel = new JLabel("Initial Sooil Moisture: ");
 	
 	private JLabel tempHeadingLabel = new JLabel("Furnace / Air Conditioner Status");
 	private JLabel furnaceStatusLabel = new JLabel("Furnace ON/OFF: ");
@@ -70,32 +71,35 @@ public class MainView extends JFrame{
 	private JLabel emptyLabel = new JLabel(" ");
 	
 	//TextFields
-	protected JTextField desiredTempField = new JTextField(10);
-	protected JTextField furnaceRateField = new JTextField(10);
-	protected JTextField conditionerRateField = new JTextField(10);
-	protected JTextField tempSampleField = new JTextField(10);
+	private JTextField desiredTempField = new JTextField(10);
+	private JTextField furnaceRateField = new JTextField(10);
+	private JTextField conditionerRateField = new JTextField(10);
+	private JTextField tempSampleField = new JTextField(10);
 	
-	protected JTextField minHumidField = new JTextField(10);
-	protected JTextField maxHumidField = new JTextField(10);
-	protected JTextField humidRateField = new JTextField(10);
-	protected JTextField humidSampleField = new JTextField(10);
+	private JTextField minHumidField = new JTextField(10);
+	private JTextField maxHumidField = new JTextField(10);
+	private JTextField humidRateField = new JTextField(10);
+	private JTextField humidSampleField = new JTextField(10);
 	
-	protected JTextField minSoilField = new JTextField(10);
-	protected JTextField maxSoilField = new JTextField(10);
-	protected JTextField soilRateField = new JTextField(10);
-	protected JTextField soilSamplField = new JTextField(10);
+	private JTextField minSoilField = new JTextField(10);
+	private JTextField maxSoilField = new JTextField(10);
+	private JTextField soilRateField = new JTextField(10);
+	private JTextField soilSamplField = new JTextField(10);
 	
-	protected JTextField extTempField = new JTextField(10);
-	protected JTextField extHumidField = new JTextField(10);
-	protected JTextField extSoilField = new JTextField(10);
+	private JTextField extTempField = new JTextField(10);
+	private JTextField extHumidField = new JTextField(10);
+	private JTextField extSoilField = new JTextField(10);
+	private JTextField extSampleField = new JTextField(10);
 	
-	protected JTextField initialTempField = new JTextField(10);
-	protected JTextField initialHumidField = new JTextField(10);
-	protected JTextField initialSoilField = new JTextField(10);
+	private JTextField initialTempField = new JTextField(10);
+	private JTextField initialHumidField = new JTextField(10);
+	private JTextField initialSoilField = new JTextField(10);
 	
 	// Buttons
+	
 	private JButton startButton = new JButton("Start Simulation");
 	private JButton stopButton = new JButton("Stop Simulation");
+	private JButton resumeButton=new JButton("Resume Simulation");
 	private JButton saveButton = new JButton("SAVE");
 	private JButton loadButton = new JButton("LOAD");
 	
@@ -126,7 +130,7 @@ public class MainView extends JFrame{
 		userSoilPanel.setLayout(new GridLayout(4,2,3,3));
 		
 		JPanel userEnvironPanel = new JPanel();
-		userEnvironPanel.setLayout(new GridLayout(3,2,3,3));
+		userEnvironPanel.setLayout(new GridLayout(4,2,3,3));
 		
 		JPanel initialCondPanel = new JPanel();
 		initialCondPanel.setLayout(new GridLayout(3,2,3,3));
@@ -134,8 +138,11 @@ public class MainView extends JFrame{
 		JPanel userInputPanel2 = new JPanel();
 		userInputPanel2.setLayout(new GridLayout(1,2,5,5));
 		
+		
+		
+		
 		JPanel startStopPanel = new JPanel();
-		startStopPanel.setLayout(new GridLayout(1,2));
+		startStopPanel.setLayout(new GridLayout(1,3));
 		
 		JPanel statusPanel = new JPanel();
 		statusPanel.setLayout(new GridLayout(1,3));
@@ -150,6 +157,7 @@ public class MainView extends JFrame{
 		
 		JPanel currentOutputPanel = new JPanel();
 		currentOutputPanel.setLayout(new GridLayout(4,2));
+
 		
 		JPanel saveLoadPanel = new JPanel();
 		saveLoadPanel.setLayout(new GridLayout(1,2));
@@ -194,6 +202,9 @@ public class MainView extends JFrame{
 		
 		initialCondTtitle.setHorizontalAlignment(JLabel.CENTER);
 		initialCondTtitle.setFont(new Font("Serif", Font.BOLD, 20));
+		
+		stopButton.setActionCommand("1");
+		resumeButton.setActionCommand("2");
 
 		//Creating user input heading panel
 		userInputHeadingPanel.add(tempLabel);
@@ -246,6 +257,8 @@ public class MainView extends JFrame{
 		userEnvironPanel.add(extHumidField);
 		userEnvironPanel.add(environSoilLabel);
 		userEnvironPanel.add(extSoilField);
+		userEnvironPanel.add(environSampleLabel);
+		userEnvironPanel.add(extSampleField);		
 		
 		initialCondPanel.add(initialTempLabel);
 		initialCondPanel.add(initialTempField);
@@ -261,6 +274,7 @@ public class MainView extends JFrame{
 		//Creating start/stop panel
 		startStopPanel.add(startButton);
 		startStopPanel.add(stopButton);
+		startStopPanel.add(resumeButton);
 		
 		//Creating device status panel
 		
@@ -306,7 +320,13 @@ public class MainView extends JFrame{
 		this.add(statusPanel);
 		this.add(currentOutputPanel);
 		this.add(saveLoadPanel);
+		
+		
+		
+		
+		
 	}
+	
 	
 	//Methods to get information from textFields
 	
@@ -359,6 +379,10 @@ public class MainView extends JFrame{
 		return Double.parseDouble(soilSamplField.getText());
 	}
 	
+	public double get(){
+		return Double.parseDouble(desiredTempField.getText());
+	}
+	
 	public double getExtTemp(){
 		return Double.parseDouble(extTempField.getText());
 	}
@@ -369,6 +393,10 @@ public class MainView extends JFrame{
 	
 	public double getExtSoil(){
 		return Double.parseDouble(extSoilField.getText());
+	}
+	
+	public double getExtSampel(){
+		return Double.parseDouble(extSampleField.getText());
 	}
 	
 	public double getInitialTemp(){
@@ -390,35 +418,19 @@ public class MainView extends JFrame{
 		startButton.addActionListener(listenForStart);
 	}
 	
-	public void stopSimListener(ActionListener listen){
+	public void stopandResumeSimListener(ActionListener listen){
 		stopButton.addActionListener(listen);
+		resumeButton.addActionListener(listen);
 	}
 	
-	public void saveSimListener(ActionListener saveListener){
-		saveButton.addActionListener(saveListener);
+	public void saveSimListener(ActionListener listenForStart){
+		saveButton.addActionListener(listenForStart);
 	}
 	
 	public void loadSimListener(ActionListener listenForStop){
 		loadButton.addActionListener(listenForStop);
 	}
 	
-	public void disableButton(JButton button) {
-		button.setEnabled(false);
-		button.setOpaque(true);
-	}
-	
-	public void enableButton(JButton button) {
-		button.setEnabled(true);
-		button.setOpaque(false);
-	}
-	
-	public JButton getStartButton() {
-		return startButton;
-	}
-	
-	public JButton getStopButton() {
-		return stopButton;
-	}
 	
 	//Methods for updating the output labels
 	
@@ -442,19 +454,19 @@ public class MainView extends JFrame{
 	
 	public void setHumidifierStatus(boolean humidifierStatus){
 		if (humidifierStatus == true){
-			humidStatusLabel.setText("Humidifier Status (ON/OFF): ON" );
+			humidStatusLabel.setText("Conditioner Status (ON/OFF): ON" );
 		}
 		else{
-			humidStatusLabel.setText("Humidifier Status (ON/OFF): OFF" );
+			humidStatusLabel.setText("Conditioner Status (ON/OFF): OFF" );
 		}		
 	}
 	
 	public void setSprinklerStatus(boolean sprinklerStatus){
 		if (sprinklerStatus == true){
-			soilStatusLabel.setText("Sprinkler Status (ON/OFF): ON" );
+			soilStatusLabel.setText("Conditioner Status (ON/OFF): ON" );
 		}
 		else{
-			soilStatusLabel.setText("Sprinkler Status (ON/OFF): OFF" );
+			soilStatusLabel.setText("Conditioner Status (ON/OFF): OFF" );
 		}
 	}
 	

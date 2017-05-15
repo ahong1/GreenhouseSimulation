@@ -1,27 +1,23 @@
-package EnvironmentSim;
+package GreenHouseSim;
 
 public class VisualSoilThread extends Thread {
 	private SoilMCModel soilM;
 	private MainView mainView;
-	private long updateFreq;
-	private boolean isRunning;
 
-	public VisualSoilThread(MainView view, SoilMCModel model, double freq) {
+	public VisualSoilThread(MainView view, SoilMCModel model) {
 		soilM=model;
 		mainView=view;
-		updateFreq=(new Double(freq).longValue());
 	}
 	
 	public void run() {
-		isRunning=true;
-		while (isRunning) {
+		while (true) {
 		try { 
-			Thread.sleep(updateFreq);
+			Thread.sleep(3000);
 			double soilSaturation=soilM.getCurrentSoilSat();
 			mainView.setCurrentSoil(soilSaturation);
 			mainView.setSprinklerStatus(soilM.isMachineOn());
 		} catch (InterruptedException e) {
-			isRunning=false;
+			e.printStackTrace();
 			}
 		}
 	}

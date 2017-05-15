@@ -1,4 +1,4 @@
-package EnvironmentSim;
+package GreenHouseSim;
 
 public class SoilMCModel {
 	private double soilSat, maxSat, minSat, eSMRate, sprinklerRate;
@@ -13,7 +13,7 @@ public class SoilMCModel {
 	}
 	
 	public void conditionCheck() {
-		if (soilSat >= maxSat) {
+		if (soilSat > maxSat) {
 			isSprinklerOn=false;
 		}
 		
@@ -33,11 +33,6 @@ public class SoilMCModel {
 		} 
 		else if (isSprinklerOn==false) {
 			soilSat+=eSMRate;
-		}
-		if (soilSat>=100) {
-			soilSat=100;
-		} else if (soilSat<=0) {
-			soilSat=0;
 		}
 	}
 	
